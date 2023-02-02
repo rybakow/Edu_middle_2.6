@@ -12,6 +12,7 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
     {
         entityManager.AddComponentData<InputData>(entity, new InputData());
         entityManager.AddComponentData<MoveData>(entity, new MoveData { Speed = speed });
+        entityManager.AddComponentData<RushData>(entity, new RushData());
     }
 }
 
@@ -23,4 +24,9 @@ public struct InputData : IComponentData
 public struct MoveData : IComponentData
 {
     public float Speed;
+}
+
+public struct RushData : IComponentData
+{
+    public float Rush;
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -11,11 +9,9 @@ public class UserInputSystem : ComponentSystem
     private EntityQuery _entityQuery;
 
     private InputAction _moveAction;
-
-    private InputAction _rushAction;
-
     private float2 _moveInput;
 
+    private InputAction _rushAction;
     private float _rushInput;
 
     protected override void OnCreate()
@@ -37,16 +33,12 @@ public class UserInputSystem : ComponentSystem
         _moveAction.started += context => { _moveInput = context.ReadValue<Vector2>(); };
         _moveAction.canceled += context => { _moveInput = context.ReadValue<Vector2>(); };
         _moveAction.Enable();
-
-        // Leftstick and space for rush
-        _rushAction = new InputAction("rush", binding: "<Gamepad>/leftStickPress");
-        //_rushAction.AddCompositeBinding("Dpad").With("Spacebar", "<Keyboard>/space");
         
-        _rushAction.performed += context => { _moveInput = context.ReadValue<Vector2>(); };
-        _rushAction.started += context => { _moveInput = context.ReadValue<Vector2>(); };
-        _rushAction.canceled += context => { _moveInput = context.ReadValue<Vector2>(); };
+        _rushAction = new InputAction("rush", binding:"<Gamepad>/buttonEast");
+        _rushAction.performed += context => { _rushInput = context.ReadValue<float>(); };
+        _rushAction.started += context => { _rushInput = context.ReadValue<float>(); };
+        _rushAction.canceled += context => { _rushInput = context.ReadValue<float>(); };
         _rushAction.Enable();
-        
     }
 
     protected override void OnStopRunning()
@@ -59,7 +51,7 @@ public class UserInputSystem : ComponentSystem
         Entities.With(_entityQuery).ForEach((Entity entity, ref InputData inputData, ref RushData rushData) =>
         {
             inputData.Move = _moveInput;
-            Debug.Log("_rushInput = " + _rushInput);
+            rushData.Rush = _rushInput;
         });
     }
 }

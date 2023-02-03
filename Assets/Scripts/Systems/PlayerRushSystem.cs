@@ -9,16 +9,16 @@ namespace Systems
 
         protected override void OnCreate()
         {
-            _entityQuery = GetEntityQuery(ComponentType.ReadOnly<InputData>(), ComponentType.ReadOnly<RushData>());
+            _entityQuery = GetEntityQuery(ComponentType.ReadOnly<RushData>());
         }
 
 
         protected override void OnUpdate()
         {
             Entities.With(_entityQuery).ForEach((
-                Entity entity, Transform transform, ref InputData inputData, ref RushData rushData) =>
+                Entity entity, Transform transform, ref RushData rushData) =>
             {
-                //Debug.Log(rushData.Rush);
+                Debug.Log(rushData.Rush);
             });
         }
     }

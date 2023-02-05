@@ -51,7 +51,7 @@ public class UserInputSystem : ComponentSystem
         Entities.With(_entityQuery).ForEach((Entity entity, ref InputData inputData, ref RushData rushData) =>
         {
             inputData.Move = _moveInput;
-            rushData.Rush = _rushInput;
+            rushData.RushActive = _rushInput;
         });
     }
 }

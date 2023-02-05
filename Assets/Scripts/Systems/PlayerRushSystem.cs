@@ -7,6 +7,9 @@ namespace Systems
     {
         private EntityQuery _entityQuery;
 
+        private bool _rushInProgress;
+        private float _currentTime;
+
         protected override void OnCreate()
         {
             _entityQuery = GetEntityQuery(ComponentType.ReadOnly<RushData>());
@@ -18,7 +21,10 @@ namespace Systems
             Entities.With(_entityQuery).ForEach((
                 Entity entity, Transform transform, ref RushData rushData) =>
             {
-                Debug.Log(rushData.Rush);
+                if (rushData.RushActive >= 1f)
+                {
+                    Debug.Log("Rush");
+                }
             });
         }
     }

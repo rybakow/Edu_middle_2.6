@@ -14,8 +14,7 @@ namespace Systems
                 ComponentType.ReadOnly<MoveData>(),
                 ComponentType.ReadOnly<Transform>());
         }
-
-
+        
         protected override void OnUpdate()
         {
             Entities.With(_entityQuery).ForEach((

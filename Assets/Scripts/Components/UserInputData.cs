@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
@@ -6,15 +7,17 @@ using UnityEngine;
 
 public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
 {
-    [HideInInspector] public float _speed = 0.01f;
+    [HideInInspector] public float _moveSpeed;
+    [HideInInspector] public bool _rushAbility;
 
-    public float _rushPower;
-    
     public void Convert(Entity entity, EntityManager entityManager, GameObjectConversionSystem conversionSystem)
     {
+        _moveSpeed = 0.01f;
+        _rushAbility = true;
+        
         entityManager.AddComponentData<InputData>(entity, new InputData());
-        entityManager.AddComponentData<MoveData>(entity, new MoveData { Speed = _speed });
-        entityManager.AddComponentData<RushData>(entity, new RushData { RushPower = _rushPower });
+        entityManager.AddComponentData<MoveData>(entity, new MoveData { Speed = _moveSpeed });
+        entityManager.AddComponentData<RushData>(entity, new RushData { RushAbility = _rushAbility});
     }
 }
 
@@ -30,6 +33,6 @@ public struct MoveData : IComponentData
 
 public struct RushData : IComponentData
 {
-    public float RushActive;
-    public float RushPower;
+    public float RushValue;
+    public bool RushAbility;
 }

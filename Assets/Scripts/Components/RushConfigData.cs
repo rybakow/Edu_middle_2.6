@@ -11,7 +11,7 @@ public class RushConfigData : MonoBehaviour, IConvertGameObjectToEntity
 
     public void Convert(Entity entity, EntityManager entityManager, GameObjectConversionSystem conversionSystem)
     {
-        _rushSpeed = 0.01f;
+        _rushSpeed = 0.15f;
         _rushTime = 0.5f;
 
         entityManager.AddComponentData<RushConfig>(entity, new RushConfig

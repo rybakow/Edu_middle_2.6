@@ -17,14 +17,29 @@ namespace Systems
 
         protected override void OnUpdate()
         {
+            Entities.With(_entityQuery).ForEach((Entity entity, ref RushData rushData) =>
+            {
+                if (rushData.RushValue == 1)
+                {
+                    
+                }
+                    
+            });
+            
             Entities.With(_entityQuery).ForEach((Entity entity, Transform transform, Animator animator) =>
             {
-                if (transform.position.magnitude != prevMagnitude)
-                    animator.SetBool("Walk", true);
-                else
-                    animator.SetBool("Walk", false);
+                float actualMagnitude = transform.position.magnitude;
 
-                prevMagnitude = transform.position.magnitude;
+                if (actualMagnitude != prevMagnitude)
+                {
+                    animator.SetBool("Walk", true);
+                }
+                else
+                {
+                    animator.SetBool("Walk", false);
+                }
+
+                prevMagnitude = actualMagnitude;
             });
         }
     }

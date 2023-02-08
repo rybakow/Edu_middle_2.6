@@ -8,6 +8,7 @@ namespace Systems
         private EntityQuery _entityQuery;
 
         private float prevMagnitude;
+        private Vector3 prevPosition;
 
         protected override void OnCreate()
         {
@@ -17,20 +18,22 @@ namespace Systems
 
         protected override void OnUpdate()
         {
-            Entities.With(_entityQuery).ForEach((Entity entity, ref RushData rushData) =>
-            {
-                if (rushData.RushValue == 1)
-                {
-                    
-                }
-                    
-            });
             
             Entities.With(_entityQuery).ForEach((Entity entity, Transform transform, Animator animator) =>
             {
-                float actualMagnitude = transform.position.magnitude;
+                if (prevPosition == null)
+                    prevPosition = transform.position;
 
-                if (actualMagnitude != prevMagnitude)
+                Vector3 velocity;
+
+                if (transform.position != prevPosition)
+                    velocity = (transform.position - prevPosition) / Time.DeltaTime;
+                else
+                    velocity = Vector3.zero;
+                
+                animator.SetFloat("Speed", velocity.magnitude);
+
+                if (velocity.magnitude > 0f)
                 {
                     animator.SetBool("Walk", true);
                 }
@@ -38,8 +41,8 @@ namespace Systems
                 {
                     animator.SetBool("Walk", false);
                 }
-
-                prevMagnitude = actualMagnitude;
+                
+                prevPosition = transform.position;
             });
         }
     }

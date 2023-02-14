@@ -21,7 +21,6 @@ public class UserInputSystem : ComponentSystem
 
     protected override void OnStartRunning()
     {
-        // Rightstick for moving
         _moveAction = new InputAction("move", binding:"<Gamepad>/rightStick");
         _moveAction.AddCompositeBinding("Dpad")
             .With("Up", "<Keyboard>/w")

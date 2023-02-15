@@ -8,7 +8,6 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Components/RushConfigData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@0.51.1-preview.21/Unity.Entities/CodeGeneratedJobForEach/UniversalDelegates.gen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@0.51.1-preview.21/Unity.Entities/ComponentSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@0.51.1-preview.21/Unity.Entities/EntityQueryBuilder.cs" root0="SKIP_HIGHLIGHTING" />
@@ -79,6 +78,8 @@
       <workItem from="1675683595440" duration="4572000" />
       <workItem from="1675761574277" duration="5416000" />
       <workItem from="1676378183336" duration="1593000" />
+      <workItem from="1676484353429" duration="3756000" />
+      <workItem from="1676490753323" duration="3330000" />
     </task>
     <servers />
   </component>

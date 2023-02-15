@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Components.Interfaces;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
 {
     [HideInInspector] public float _moveSpeed;
     [HideInInspector] public bool _rushAbility;
-
+    
     public void Convert(Entity entity, EntityManager entityManager, GameObjectConversionSystem conversionSystem)
     {
         _moveSpeed = 0.01f;

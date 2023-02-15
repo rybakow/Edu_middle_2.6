@@ -2,7 +2,7 @@
 {
     public interface IAbility
     {
-        public void Execute()
+        void Execute()
         {
             
         }

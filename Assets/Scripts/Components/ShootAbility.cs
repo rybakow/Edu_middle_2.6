@@ -1,4 +1,7 @@
-﻿using Components.Interfaces;
+﻿using System.Security.Cryptography;
+using Components.Interfaces;
+using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Components
@@ -6,39 +9,22 @@ namespace Components
     public class ShootAbility: MonoBehaviour, IAbility
     {
         public GameObject _cannon;
-        public GameObject _bullet;
-
-        public Vector3 _targetCoordinates;
         
-        public float _timeOut = 3f;
-
-        private float _currentTime;
-
-        public void Execute()
+        public void Execute(Vector3 targetCoordinates)
         {
-            _currentTime += Time.deltaTime;
+            Vector3 attackVector3 = targetCoordinates - _cannon.transform.position;
+            
+            var newBullet = Instantiate(this.gameObject, _cannon.transform.position, _cannon.transform.rotation);
+            
+            newBullet.transform.LookAt(targetCoordinates);
 
-            if (_currentTime >= _timeOut)
-            {
-                _currentTime = 0f;
-                
-                if (_bullet != null && _cannon != null)
-                {
-                    var newBullet = Instantiate(_bullet, _cannon.transform.position, _cannon.transform.rotation);
-                    Rigidbody newBulletRigidbody = newBullet.GetComponent<Rigidbody>();
-                    SphereCollider newBulletCollider = newBullet.GetComponent<SphereCollider>();
+            newBullet.GetComponent<SphereCollider>().isTrigger = false;
 
-                    newBulletCollider.isTrigger = false;
-                    newBulletRigidbody.isKinematic = false;
-                    
-                    newBulletRigidbody.AddForce(Vector3.right, ForceMode.Impulse);
-                    
-                    Debug.Log("Shoot");
-                }
-                else
-                    Debug.LogError("[SHOOT ABILITY] No bullet or cannon prefab");
-            }
+            var rigidbody = newBullet.GetComponent<Rigidbody>();
+            rigidbody.isKinematic = false;
+            rigidbody.AddForce(attackVector3 * 500f);
+            
+            Destroy(newBullet.GetComponent<ShootAbility>());
         }
-        
     }
 }

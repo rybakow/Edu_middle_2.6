@@ -1069,9 +1069,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cannon: {fileID: 1921500775}
-  _bullet: {fileID: 1452725012}
-  _targetCoordinates: {x: 0, y: 0, z: 0}
-  _timeOut: 3
 --- !u!1 &1609883513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,6 +1623,7 @@ GameObject:
   - component: {fileID: 919132149331151192}
   - component: {fileID: 919132149331151193}
   - component: {fileID: 919132149331151194}
+  - component: {fileID: 919132149331151195}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1675,6 +1673,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa3573a1f2c464bb7c5ddf60442a020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &919132149331151195
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149331151191}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 29.906326
+  m_Height: 185.83682
+  m_Direction: 1
+  m_Center: {x: 0.97787976, y: 91.85909, z: 0}
 --- !u!4 &1031632034159782320
 Transform:
   m_ObjectHideFlags: 0

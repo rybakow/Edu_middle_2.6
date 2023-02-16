@@ -1,4 +1,5 @@
 ﻿using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Components
@@ -13,6 +14,5 @@ namespace Components
     
     public struct TargetCoordinates : IComponentData
     {
-        public Vector3 coordinates;
     }
 }

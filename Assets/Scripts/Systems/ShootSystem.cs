@@ -1,24 +1,39 @@
 ﻿using Components;
 using Unity.Entities;
+using Unity.Mathematics;
+using UnityEngine;
 
 namespace Systems
 {
     public class ShootSystem: ComponentSystem
     {
-        private EntityQuery _entityQuery;
+        private float _currentTime;
 
-        protected override void OnCreate()
-        {
-            _entityQuery = GetEntityQuery(ComponentType.ReadOnly<ShootAbility>());
-        }
-        
+        private bool shooted;
+
         protected override void OnUpdate()
         {
-            Entities.With(_entityQuery).ForEach((
-                Entity entity, ShootAbility shootAbility) =>
+            _currentTime += Time.DeltaTime;
+
+            if (_currentTime <= 3f)
             {
-                shootAbility.Execute();
-            });
+                if (!shooted)
+                {
+                    Entities.WithAll<TargetData>().ForEach((Entity entity, Transform transform) => 
+                    {
+                        Entities.WithAll<ShootAbility>().ForEach((Entity entity, ShootAbility shootAbility) =>
+                        {
+                            shootAbility.Execute(transform.position);
+                            shooted = true;
+                        });
+                    });
+                }
+            }
+            else
+            {
+                _currentTime = 0f;
+                shooted = false;
+            }
         }
     }
 }

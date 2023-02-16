@@ -7,6 +7,7 @@ namespace Systems
     public class TargetFinderSystem: ComponentSystem
     {
         private EntityQuery _entityQuery;
+        private EntityQuery _entiryWeaponQuery;
         
         protected override void OnCreate()
         {
@@ -17,8 +18,9 @@ namespace Systems
         {
             Entities.With(_entityQuery).ForEach((Entity entity, Transform transform, ref TargetCoordinates targetCoordinates) =>
             {
-                targetCoordinates.transform = transform;
+                targetCoordinates.coordinates = transform.position;
             });
+            
         }
 
     }

@@ -13,6 +13,6 @@ namespace Components
     
     public struct TargetCoordinates : IComponentData
     {
-        public Transform transform;
+        public Vector3 coordinates;
     }
 }

@@ -9,15 +9,13 @@ namespace Systems
 
         protected override void OnCreate()
         {
-            _entityQuery = GetEntityQuery(
-                ComponentType.ReadOnly<EnemyShootData>(), 
-                ComponentType.ReadOnly<ShootAbility>());
+            _entityQuery = GetEntityQuery(ComponentType.ReadOnly<ShootAbility>());
         }
         
         protected override void OnUpdate()
         {
             Entities.With(_entityQuery).ForEach((
-                Entity entity, ShootAbility shootAbility, ref EnemyShootData enemyShootData) =>
+                Entity entity, ShootAbility shootAbility) =>
             {
                 shootAbility.Execute();
             });

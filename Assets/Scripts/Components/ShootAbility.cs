@@ -7,6 +7,8 @@ namespace Components
     {
         public GameObject _cannon;
         public GameObject _bullet;
+
+        public Vector3 _targetCoordinates;
         
         public float _timeOut = 3f;
 
@@ -22,7 +24,7 @@ namespace Components
                 
                 if (_bullet != null && _cannon != null)
                 {
-                    GameObject newBullet = Instantiate(_bullet, _cannon.transform.position, _cannon.transform.rotation);
+                    var newBullet = Instantiate(_bullet, _cannon.transform.position, _cannon.transform.rotation);
                     Rigidbody newBulletRigidbody = newBullet.GetComponent<Rigidbody>();
                     SphereCollider newBulletCollider = newBullet.GetComponent<SphereCollider>();
 

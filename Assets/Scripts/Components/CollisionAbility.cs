@@ -4,7 +4,6 @@ using Components.Interfaces;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class CollisionAbility : MonoBehaviour, IAbility, IConvertGameObjectToEntity
 {
@@ -18,7 +17,19 @@ public class CollisionAbility : MonoBehaviour, IAbility, IConvertGameObjectToEnt
         switch (_collider)
         {
             case CapsuleCollider capsule:
-                // Here 
+                
+                entityManager.AddComponentData<ColliderData>(entity, new ColliderData
+                {
+                    ColliderType = ColliderType.Capsule,
+                    CapsuleStart = capsuleStart - position,
+                    CapsuleEnd = capsuleEnd - position,
+                    CapsuleRadius = capsuleRadius,
+                    initialTakeOff = true
+                    
+                });
+                break;
+            case BoxCollider box:
+                //
                 break;
         }
     }
@@ -27,10 +38,19 @@ public class CollisionAbility : MonoBehaviour, IAbility, IConvertGameObjectToEnt
 
 public struct ColliderData: IComponentData
 {
-    public Tile.ColliderType ColliderType;
+    public ColliderType ColliderType;
     public float3 CapsuleStart;
     public float3 CapsuleEnd;
     public float3 CapsuleRadius;
+    public float3 BoxCenter;
+    public float3 BoxHalfExtents;
+    public quaternion BoxOrientation;
     public bool initialTakeOff;
 
+}
+
+public enum ColliderType
+{
+    Capsule = 0,
+    Box = 1
 }

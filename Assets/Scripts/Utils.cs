@@ -12,7 +12,7 @@ namespace DefaultNamespace
             return go == null ? null : go.GetComponents<Collider>().ToList();
         }
 
-        public static void toWorldSpaceBox(this BoxCollider box, out float3 center, out float3 halfExtents,
+        public static void ToWorldSpaceBox(this BoxCollider box, out float3 center, out float3 halfExtents,
             out quaternion orientation)
         {
             Transform transform = box.transform;
@@ -23,7 +23,7 @@ namespace DefaultNamespace
             halfExtents = Vector3.Scale(scale, box.size) * 0.5f;
         }
 
-        public static void toWorldSpaceCapsule(this CapsuleCollider capsule, out float3 point0, out float3 point1,
+        public static void ToWorldSpaceCapsule(this CapsuleCollider capsule, out float3 point0, out float3 point1,
             out float radius)
         {
             Transform transform = capsule.transform;
@@ -60,11 +60,18 @@ namespace DefaultNamespace
             point0 = center + dir * (height * 0.5f - radius);
             point1 = center - dir * (height * 0.5f - radius);
         }
+        
+        
 
 
         private static float3 Abs(float3 v)
         {
             return new float3(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
+        }
+
+        private static float Max(float3 v)
+        {
+            return Mathf.Max(v.x, Mathf.Max(v.y, v.z));
         }
     }
 }

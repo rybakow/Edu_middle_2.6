@@ -5,22 +5,21 @@ using DefaultNamespace;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class CollisionAbility : MonoBehaviour, IAbility, IConvertGameObjectToEntity
+public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, ICollisionAbility
 {
 
-    public Collider _collider;
+    public Collider collider;
 
-    public void Execute()
-    {
-        Debug.Log("Hi!");
-    }
+    public List<Collider> Collisions { get; set; }
+    
     
     public void Convert(Entity entity, EntityManager entityManager, GameObjectConversionSystem conversionSystem)
     {
         float3 position = this.gameObject.transform.position;
 
-        switch (_collider)
+        switch (collider)
         {
             case CapsuleCollider capsule:
                 capsule.ToWorldSpaceCapsule(out var capsuleStart, out var capsuleEnd, out var capsuleRadius);
@@ -45,11 +44,22 @@ public class CollisionAbility : MonoBehaviour, IAbility, IConvertGameObjectToEnt
                     initialTakeOff = true
                 });
                 break;
+            
+            case SphereCollider sphere:
+                sphere.ToWorldSpaceSphere(out var sphereCenter, out var sphereRadius);
+                entityManager.AddComponentData(entity, new ColliderData
+                {
+                    ColliderType = ColliderType.Sphere,
+                    SphereCenter = sphereCenter - position,
+                    SphereRadius = sphereRadius,
+                    initialTakeOff = true
+                });
+                break;
         }
 
-        _collider.enabled = false;
+        collider.enabled = false;
     }
-   
+    
 }
 
 public struct ColliderData: IComponentData
@@ -61,6 +71,8 @@ public struct ColliderData: IComponentData
     public float3 BoxCenter;
     public float3 BoxHalfExtents;
     public quaternion BoxOrientation;
+    public float3 SphereCenter;
+    public float SphereRadius;
     public bool initialTakeOff;
 
 }
@@ -68,5 +80,6 @@ public struct ColliderData: IComponentData
 public enum ColliderType
 {
     Capsule = 0,
-    Box = 1
+    Box = 1,
+    Sphere = 2
 }

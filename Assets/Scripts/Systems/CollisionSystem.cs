@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Components.Interfaces;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -21,11 +23,17 @@ namespace Systems
         {
             var dstManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             
-            Entities.With(_entityQuery).ForEach((Entity entity, CollisionAbility collisionAbility, ref ColliderData colliderData) =>
+            Entities.With(_entityQuery).ForEach((Entity entity, Transform transform, ref ColliderData colliderData) =>
             {
-                var gameObject = collisionAbility.gameObject;
+                var gameObject = transform.gameObject;
                 float3 position = gameObject.transform.position;
                 Quaternion rotation = gameObject.transform.rotation;
+
+                var collisionAbility = gameObject.GetComponent<ICollisionAbility>();
+                
+                if (collisionAbility == null) return;
+
+                collisionAbility.Collisions?.Clear();
 
                 int size = 0;
 
@@ -44,12 +52,17 @@ namespace Systems
                         size = Physics.OverlapBoxNonAlloc(colliderData.BoxCenter + position, colliderData.BoxHalfExtents, _results, colliderData.BoxOrientation * rotation);
                         break;
                     
+                    case ColliderType.Sphere:
+                        size = Physics.OverlapSphereNonAlloc(colliderData.SphereCenter + position, colliderData.SphereRadius, _results);
+                        break;
+                    
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
 
                 if (size > 0)
                 {
+                    collisionAbility.Collisions = _results.ToList();
                     collisionAbility.Execute();
                 }
             });

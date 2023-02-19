@@ -974,6 +974,7 @@ GameObject:
   - component: {fileID: 1452725017}
   - component: {fileID: 1452725020}
   - component: {fileID: 1452725019}
+  - component: {fileID: 1452725022}
   m_Layer: 0
   m_Name: CannonCore
   m_TagString: Untagged
@@ -1101,6 +1102,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cannon: {fileID: 1921500775}
+--- !u!114 &1452725022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452725012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5158ac55fedac24f81dc3a43278c747, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 1452725014}
+  Damage: 50
 --- !u!1 &1609883513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,13 +1739,12 @@ GameObject:
   m_Component:
   - component: {fileID: 543450653523317741}
   - component: {fileID: 804162887}
+  - component: {fileID: 919132149331151195}
+  - component: {fileID: 919132149331151192}
   - component: {fileID: 804162885}
   - component: {fileID: 804162886}
-  - component: {fileID: 919132149331151192}
   - component: {fileID: 919132149331151193}
   - component: {fileID: 919132149331151194}
-  - component: {fileID: 919132149331151195}
-  - component: {fileID: 919132149331151196}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1794,19 +1808,6 @@ CapsuleCollider:
   m_Height: 169.58066
   m_Direction: 1
   m_Center: {x: 0.97787976, y: 99.98717, z: 0}
---- !u!114 &919132149331151196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149331151191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b2cc45b942b4e968524a1fa5856daef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _collider: {fileID: 919132149331151195}
 --- !u!4 &1031632034159782320
 Transform:
   m_ObjectHideFlags: 0

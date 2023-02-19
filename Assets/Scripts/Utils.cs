@@ -62,6 +62,14 @@ namespace DefaultNamespace
         }
         
         
+        public static void ToWorldSpaceSphere(this SphereCollider sphere, out float3 center, out float radius)
+        {
+            Transform transform = sphere.transform;
+            center = transform.TransformPoint(sphere.center);
+            radius = sphere.radius * Max(Abs(transform.lossyScale));
+        }
+        
+        
 
 
         private static float3 Abs(float3 v)

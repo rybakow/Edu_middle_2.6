@@ -1,6 +1,6 @@
 ﻿using Components;
+using Components.Interfaces;
 using Unity.Entities;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace Systems
@@ -23,7 +23,8 @@ namespace Systems
                     {
                         Entities.WithAll<ShootAbility>().ForEach((Entity entity, ShootAbility shootAbility) =>
                         {
-                            shootAbility.Execute(transform.position);
+                            shootAbility.TargetGameObject = transform.gameObject;
+                            shootAbility.Execute();
                             shooted = true;
                         });
                     });

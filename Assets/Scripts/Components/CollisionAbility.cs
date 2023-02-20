@@ -17,6 +17,7 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IColl
     
     public void Convert(Entity entity, EntityManager entityManager, GameObjectConversionSystem conversionSystem)
     {
+        Debug.Log("!!!");
         float3 position = this.gameObject.transform.position;
 
         switch (collider)
@@ -56,8 +57,7 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IColl
                 });
                 break;
         }
-
-        collider.enabled = false;
+        
     }
     
 }

@@ -1,19 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using Components.Interfaces;
+using Unity.Entities;
 using UnityEngine;
 
-public class DamageAbility : CollisionAbility, ICollisionAbility
+namespace Components
 {
-    public int Damage = 50;
-
-    public void Execute()
+    public class DamageAbility : CollisionAbility, ICollisionAbility, IConvertGameObjectToEntity
     {
-        foreach (var target in Collisions)
+        public int Damage = 50;
+
+        public void Execute()
         {
-            var go = target?.gameObject;
-            Debug.Log(go?.name);
+            foreach (var target in Collisions)
+            {
+               var targetHealth = target?.gameObject?.GetComponent<CharacterHealth>();
+
+               if (targetHealth != null)
+               {
+                   Debug.Log(target.gameObject.name);
+                   targetHealth.Health -= Damage;
+               }
+            }
         }
     }
-
 }

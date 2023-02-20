@@ -21,8 +21,6 @@ namespace Systems
 
         protected override void OnUpdate()
         {
-            var dstManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            
             Entities.With(_entityQuery).ForEach((Entity entity, Transform transform, ref ColliderData colliderData) =>
             {
                 var gameObject = transform.gameObject;

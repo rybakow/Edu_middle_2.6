@@ -1,20 +1,23 @@
-﻿using System.Security.Cryptography;
-using Components.Interfaces;
-using Unity.Entities;
-using Unity.Mathematics;
+﻿using Components.Interfaces;
 using UnityEngine;
 
 namespace Components
 {
-    public class ShootAbility: MonoBehaviour, IAbility
+    public class ShootAbility: MonoBehaviour, IShootAbility
     {
         public GameObject _cannon;
+
+        public GameObject _cannonCore;
         
-        public void Execute(Vector3 targetCoordinates)
+        public GameObject TargetGameObject { get; set; }
+        
+        public void Execute()
         {
+            var targetCoordinates = TargetGameObject.transform.position;
+            
             Vector3 attackVector3 = targetCoordinates - _cannon.transform.position;
             
-            var newBullet = Instantiate(this.gameObject, _cannon.transform.position, _cannon.transform.rotation);
+            var newBullet = Instantiate(_cannonCore, _cannon.transform.position, _cannon.transform.rotation);
             
             newBullet.transform.LookAt(targetCoordinates);
 
@@ -26,5 +29,7 @@ namespace Components
             
             Destroy(newBullet.GetComponent<ShootAbility>());
         }
+        
+        
     }
 }

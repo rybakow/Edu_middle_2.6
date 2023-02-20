@@ -1,4 +1,6 @@
-﻿using Unity.Entities;
+﻿using System.Collections.Generic;
+using Components.Interfaces;
+using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -10,6 +12,7 @@ namespace Components
         {
             entityManager.AddComponentData<TargetCoordinates>(entity, new TargetCoordinates());
         }
+
     }
     
     public struct TargetCoordinates : IComponentData

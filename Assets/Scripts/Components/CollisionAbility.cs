@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, ICollisionAbility
 {
 
-    public Collider collider;
+    public Collider Collider;
 
     public List<Collider> Collisions { get; set; }
     
@@ -20,7 +20,7 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IColl
         Debug.Log("!!!");
         float3 position = this.gameObject.transform.position;
 
-        switch (collider)
+        switch (Collider)
         {
             case CapsuleCollider capsule:
                 capsule.ToWorldSpaceCapsule(out var capsuleStart, out var capsuleEnd, out var capsuleRadius);

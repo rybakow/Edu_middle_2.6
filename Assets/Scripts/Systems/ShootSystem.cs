@@ -21,7 +21,7 @@ namespace Systems
                 {
                     Entities.WithAll<TargetData>().ForEach((Entity entity, Transform transform) => 
                     {
-                        Entities.WithAll<ShootAbility>().ForEach((Entity entity, ShootAbility shootAbility) =>
+                        Entities.WithAll<FirstCannon>().ForEach((Entity entity, ShootAbility shootAbility) =>
                         {
                             shootAbility.TargetGameObject = transform.gameObject;
                             shootAbility.Execute();

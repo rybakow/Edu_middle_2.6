@@ -16,9 +16,9 @@ namespace Components
 
                if (targetHealth != null)
                {
-                   Debug.Log(target.gameObject.name);
                    targetHealth.Health -= Damage;
-               }
+                   Debug.Log("HIT for [" + target.gameObject.name + "] and health after collision = " + targetHealth.Health);
+                }
             }
         }
     }

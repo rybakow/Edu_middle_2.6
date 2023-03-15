@@ -17,7 +17,6 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IColl
     
     public void Convert(Entity entity, EntityManager entityManager, GameObjectConversionSystem conversionSystem)
     {
-        Debug.Log("!!!");
         float3 position = this.gameObject.transform.position;
 
         switch (Collider)

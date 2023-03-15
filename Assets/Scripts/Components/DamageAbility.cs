@@ -12,12 +12,14 @@ namespace Components
         {
             foreach (var target in Collisions)
             {
-               var targetHealth = target?.gameObject?.GetComponent<CharacterHealth>();
+                var targetHealth = target?.gameObject?.GetComponent<CharacterHealth>();
 
-               if (targetHealth != null)
-               {
-                   targetHealth.Health -= Damage;
-                   Debug.Log("HIT for [" + target.gameObject.name + "] and health after collision = " + targetHealth.Health);
+                if (targetHealth != null)
+                {
+                    targetHealth.Health -= Damage;
+                    Debug.Log("[HIT] for " + target.gameObject.name + " and health after collision = " + targetHealth.Health);
+                    
+                    Destroy(this.GetComponent<DamageAbility>());
                 }
             }
         }

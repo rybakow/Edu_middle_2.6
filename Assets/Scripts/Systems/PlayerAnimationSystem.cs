@@ -7,12 +7,11 @@ namespace Systems
     {
         private EntityQuery _entityQuery;
 
-        private float prevMagnitude;
         private Vector3 prevPosition;
 
         protected override void OnCreate()
         {
-            _entityQuery = GetEntityQuery(ComponentType.ReadOnly<Animator>());
+            _entityQuery = GetEntityQuery(ComponentType.ReadOnly<Animator>(), ComponentType.ReadOnly<CharacterHealth>());
         }
 
 

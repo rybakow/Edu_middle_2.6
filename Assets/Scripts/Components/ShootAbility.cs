@@ -12,15 +12,8 @@ namespace Components
 
         public GameObject TargetGameObject { get; set; }
 
-        private EntityManager _entityManager;
-
         private float _shootTime = float.MinValue;
 
-
-        private void Awake()
-        {
-            _entityManager = new EntityManager();
-        }
 
         public void Execute()
         {

@@ -8,11 +8,13 @@ namespace Components
     {
         public GameObject Cannon;
 
+
         public GameObject CannonCore;
 
         public GameObject TargetGameObject { get; set; }
 
         private float _shootTime = float.MinValue;
+
 
 
         public void Execute()
@@ -24,19 +26,23 @@ namespace Components
 
             var targetCoordinates = TargetGameObject.transform.position;
 
+
             Vector3 attackVector3 = targetCoordinates - Cannon.transform.position;
 
             var newBullet = Instantiate(CannonCore, Cannon.transform.position, Cannon.transform.rotation);
 
             newBullet.transform.LookAt(targetCoordinates);
 
-            newBullet.GetComponent<SphereCollider>().isTrigger = false;
+
+            //newBullet.GetComponent<SphereCollider>().isTrigger = false;
+
 
             var rigidbody = newBullet.GetComponent<Rigidbody>();
             rigidbody.isKinematic = false;
             rigidbody.AddForce(attackVector3 * 500f);
 
             Destroy(newBullet.GetComponent<ShootAbility>());
+
         }
 
 

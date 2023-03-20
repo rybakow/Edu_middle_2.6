@@ -33,6 +33,7 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IColl
                     
                 });
                 break;
+
             case BoxCollider box:
                 box.ToWorldSpaceBox(out var boxCenter, out var boxHalfExtents, out var boxOrientation);
                 entityManager.AddComponentData(entity, new ColliderData

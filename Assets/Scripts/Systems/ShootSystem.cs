@@ -15,7 +15,7 @@ namespace Systems
                 Entities.WithAll<ShootAbility>().ForEach((Entity entity, ShootAbility shootAbility) =>
                  {
                    shootAbility.TargetGameObject = transform.gameObject;
-                   //shootAbility.Execute();
+                   shootAbility.Execute();
 
                });
             });

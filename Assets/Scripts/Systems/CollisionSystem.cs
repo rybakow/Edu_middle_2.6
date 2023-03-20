@@ -60,7 +60,6 @@ namespace Systems
 
                 if (size > 0)
                 {
-                    Debug.Log(_results.ToList());
                     collisionAbility.Collisions = _results.ToList();
                     collisionAbility.Execute();
                 }

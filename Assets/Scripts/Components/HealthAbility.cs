@@ -18,7 +18,7 @@ namespace Components
                 if (targetHealth != null)
                 {
                     targetHealth.Health += Health;
-                    Debug.Log(this.gameObject.name + " [HEALTH] for " + target.gameObject.name + " and health after collision = " + targetHealth.Health);
+                    Debug.Log("[HEALTH] for " + target.gameObject.name + " and health after collision = " + targetHealth.Health);
 
                     this.GetComponent<Animator>().SetTrigger("Destroy");
 

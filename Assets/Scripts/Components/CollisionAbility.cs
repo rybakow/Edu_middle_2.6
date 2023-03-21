@@ -7,14 +7,49 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, ICollisionAbility
+public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IAbility
 {
 
     public Collider Collider;
 
-    public List<Collider> Collisions { get; set; }
-    
-    
+    public List<Collider> Collisions;
+
+    [field: SerializeField] public List<MonoBehaviour> collisionActions { get; set; } = new List<MonoBehaviour>();
+
+    private List<IAbilityTarget> collisionAbility = new List<IAbilityTarget>();
+
+
+    private void Start()
+    {
+        foreach (MonoBehaviour a in collisionActions)
+        {
+            if (a is IAbilityTarget ability) collisionAbility.Add(ability);
+            else Debug.LogError("Collision must be right");
+        }
+    }
+
+    public void Execute()
+    {
+        
+        foreach (var action in collisionAbility)
+        {
+            action.Targets = new List<GameObject>();
+
+            Collisions?.ForEach(c =>
+            {
+                if (c != null)
+                {                    
+                    action.Targets.Add(c.gameObject);
+                }
+            });
+
+            action.Execute();
+        }
+
+
+    }
+
+
     public void Convert(Entity entity, EntityManager entityManager, GameObjectConversionSystem conversionSystem)
     {
         float3 position = this.gameObject.transform.position;
@@ -30,7 +65,7 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IColl
                     CapsuleEnd = capsuleEnd - position,
                     CapsuleRadius = capsuleRadius,
                     initialTakeOff = true
-                    
+
                 });
                 break;
 
@@ -45,7 +80,7 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IColl
                     initialTakeOff = true
                 });
                 break;
-            
+
             case SphereCollider sphere:
                 sphere.ToWorldSpaceSphere(out var sphereCenter, out var sphereRadius);
                 entityManager.AddComponentData(entity, new ColliderData
@@ -57,12 +92,12 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IColl
                 });
                 break;
         }
-        
+
     }
-    
+
 }
 
-public struct ColliderData: IComponentData
+public struct ColliderData : IComponentData
 {
     public ColliderType ColliderType;
     public float3 CapsuleStart;

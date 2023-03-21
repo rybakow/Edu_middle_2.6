@@ -1,27 +1,36 @@
 using Components.Interfaces;
+using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
 namespace Components
 {
-    public class DamageAbility : CollisionAbility, ICollisionAbility, IConvertGameObjectToEntity
+    public class ApplyDamage : MonoBehaviour, IAbilityTarget
     {
         public int Damage = 50;
 
+        public List<GameObject> Targets { get; set; }
+
+        private bool _gotten;
+
+
         public void Execute()
         {
-            foreach (var target in Collisions)
+            if (_gotten) return;
+
+            foreach (var target in Targets)
             {
                 var targetHealth = target?.gameObject?.GetComponent<CharacterHealth>();
 
                 if (targetHealth != null)
                 {
+                    _gotten = true;
+
                     targetHealth.Health -= Damage;
-                    Debug.Log("[HIT] for " + target.gameObject.name + " and health after collision = " + targetHealth.Health);
-                    
-                    Destroy(this.GetComponent<DamageAbility>());
+                    Debug.Log("[DAMAGE] for " + target.gameObject.name + " and health after collision = " + targetHealth.Health);
                 }
             }
+
         }
     }
 }

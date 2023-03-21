@@ -13,7 +13,7 @@ namespace Systems
         private EntityQuery _entityQuery;
 
         private Collider[] _results = new Collider[50];
-
+        
         protected override void OnCreate()
         {
             _entityQuery = GetEntityQuery(ComponentType.ReadOnly<ColliderData>(), ComponentType.ReadOnly<Transform>());
@@ -21,16 +21,13 @@ namespace Systems
 
         protected override void OnUpdate()
         {
-            Entities.With(_entityQuery).ForEach((Entity entity, Transform transform, ref ColliderData colliderData) =>
+            Entities.With(_entityQuery).ForEach((Entity entity, CollisionAbility collisionAbility, ref ColliderData colliderData) =>
             {
-                var gameObject = transform.gameObject;
+                var gameObject = collisionAbility?.gameObject;
                 float3 position = gameObject.transform.position;
                 Quaternion rotation = gameObject.transform.rotation;
 
-                var collisionAbility = gameObject.GetComponent<ICollisionAbility>();
                 
-                if (collisionAbility == null) return;
-
                 collisionAbility.Collisions?.Clear();
 
                 int size = 0;
@@ -60,7 +57,10 @@ namespace Systems
 
                 if (size > 0)
                 {
-                    collisionAbility.Collisions = _results.ToList();
+                    foreach (var result in _results)
+                    {
+                        collisionAbility?.Collisions?.Add(result);
+                    }      
                     collisionAbility.Execute();
                 }
             });

@@ -17,6 +17,7 @@ namespace Components
         {
             if (_gotten) return;
 
+
             foreach (var target in Targets)
             {
                 var targetHealth = target?.gameObject?.GetComponent<CharacterHealth>();

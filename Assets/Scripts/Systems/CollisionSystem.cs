@@ -60,7 +60,8 @@ namespace Systems
                     foreach (var result in _results)
                     {
                         collisionAbility?.Collisions?.Add(result);
-                    }      
+                    }
+                    
                     collisionAbility.Execute();
                 }
             });

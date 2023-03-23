@@ -11,7 +11,7 @@ namespace Components
 
         public List<GameObject> Targets { get; set; }
 
-        private bool _gotten;
+        public bool _gotten;
 
         public void Execute()
         {

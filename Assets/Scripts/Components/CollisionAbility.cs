@@ -33,18 +33,16 @@ public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity, IAbil
         
         foreach (var action in collisionAbility)
         {
-            
-
             action.Targets = new List<GameObject>();
 
             Collisions?.ForEach(c =>
             {
                 if (c != null)
-                {                    
+                {   
                     action.Targets.Add(c.gameObject);
                 }
             });
-
+            
             action.Execute();
         }
 

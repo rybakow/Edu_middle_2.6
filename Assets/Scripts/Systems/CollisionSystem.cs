@@ -11,8 +11,6 @@ namespace Systems
     public class CollisionSystem: ComponentSystem
     {
         private EntityQuery _entityQuery;
-
-        private Collider[] _results = new Collider[50];
         
         protected override void OnCreate()
         {
@@ -27,6 +25,7 @@ namespace Systems
                 float3 position = gameObject.transform.position;
                 Quaternion rotation = gameObject.transform.rotation;
 
+                var _results = new Collider[50];
                 
                 collisionAbility.Collisions?.Clear();
 
@@ -61,7 +60,7 @@ namespace Systems
                     {
                         collisionAbility?.Collisions?.Add(result);
                     }
-                    
+
                     collisionAbility.Execute();
                 }
             });

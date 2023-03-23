@@ -1,4 +1,5 @@
-﻿using Components.Interfaces;
+﻿using System;
+using Components.Interfaces;
 using Unity.Entities;
 using UnityEngine;
 
@@ -13,6 +14,13 @@ namespace Components
         public GameObject TargetGameObject { get; set; }
 
         private float _shootTime = float.MinValue;
+
+        private PlayerStat _playerStat;
+
+        private void Start()
+        {
+            _playerStat = new PlayerStat();
+        }
 
 
         public void Execute()

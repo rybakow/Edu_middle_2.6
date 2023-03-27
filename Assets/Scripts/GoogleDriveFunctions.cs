@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Unity.Assertions;
+using UnityEngine;
 using UnityGoogleDrive;
 using UnityGoogleDrive.Data;
 
@@ -8,26 +11,34 @@ namespace DefaultNamespace
 {
     public static class GoogleDriveFunctions
     {
-        public static File Upload(String obj)
+
+        public static File LastUploadedFile;
+        public static File LastDownloadedFile;
+        
+        public async static System.Threading.Tasks.Task<UnityGoogleDrive.Data.File> UpdloadAsync(String obj)
         {
-            var file = new UnityGoogleDrive.Data.File { Name = "GameData.json", Content = Encoding.ASCII.GetBytes(obj) };
-            GoogleDriveFiles.Create(file).Send();
-            return file;
+            LastUploadedFile = null;
+
+            var file = new File { Name = "GameData.json", Content = Encoding.ASCII.GetBytes(obj) };
+            
+            var request = GoogleDriveFiles.Create(file);
+            return await request.Send();
         }
         
-        public static File Download(String fileId)
-        {
-            File output = new File();
-            GoogleDriveFiles.Download(fileId).Send().OnDone += file => { output = file; };
-            
-            return output;
-        }
 
-        public static List<File> FileList()
+        public async static System.Threading.Tasks.Task<UnityGoogleDrive.Data.File> DownloadAsync()
         {
-            List<File> output = new List<File>();
-            GoogleDriveFiles.List().Send().OnDone += fileList => { output = fileList.Files; };
-            return output;
-        } 
+            LastDownloadedFile = null;
+            
+            if (LastUploadedFile == null)
+            {
+                Debug.LogError("[DOWNLOAD_ERROR] last uploaded file is null");
+                return null;
+            }
+                 
+            
+            var request = GoogleDriveFiles.Download(LastUploadedFile.Id);
+            return await request.Send();
+        }
     }
 }

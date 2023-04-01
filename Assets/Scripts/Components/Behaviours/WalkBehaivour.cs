@@ -1,18 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Components.Interfaces;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class WalkBehaivour : MonoBehaviour
+public class WalkBehaivour : MonoBehaviour, IBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float Evaluate()
     {
+        List<Collider> collisions = this.GetComponent<CollisionAbility>().Collisions;
         
+        foreach (var coll in collisions)
+        {
+            var player = coll?.gameObject?.GetComponent<CharacterHealth>();
+
+            if (player != null)
+            {
+                Debug.Log("WalkBeh - вижу игрока");
+                return 2f;
+            }
+        }
+        
+        return 0f;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Execute()
     {
-        
+        Debug.Log("Zombie is walking...");
     }
 }

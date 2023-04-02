@@ -8,7 +8,7 @@ namespace Components
 {
     public class ApplyDamage : MonoBehaviour, IAbilityTarget
     {
-        public int Damage = 50;
+        public int Damage;
 
         public List<GameObject> Targets { get; set; }
 

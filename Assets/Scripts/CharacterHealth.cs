@@ -10,10 +10,15 @@ public class CharacterHealth : MonoBehaviour
 {
     public Settings settings;
 
+    public int HealthView;
+
     public int Health
     {
         get => GameManager.Health;
-        set => GameManager.Health = value;
+        set {
+            GameManager.Health = value;
+            HealthView = value;
+        }
     }
     
     public int FirstAid

@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Settings : ScriptableObject
 {
-    public int Health = 500;
+    public int Health;
 }

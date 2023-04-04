@@ -5,13 +5,14 @@ using DefaultNamespace;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class CharacterHealth : MonoBehaviour
 {
-    public Settings settings;
-
     public int HealthView;
-
+    
+    [Inject] private IConfigLoader _configLoader;
+    
     public int Health
     {
         get => GameManager.Health;
@@ -29,7 +30,9 @@ public class CharacterHealth : MonoBehaviour
 
     private void Start()
     {
-        Health = settings.Health;
+        var gameConfig = _configLoader.GetGameConfig();
+
+        Health = gameConfig.Health;
         FirstAid = 0;
     }
     

@@ -6,19 +6,15 @@ namespace DefaultNamespace
     {
         private Settings _gameConfig;
 
-        public ConfigLoader()
-        {
-            LoadConfig();
-        }
-
         public void LoadConfig()
         {
-            _gameConfig = new Settings();
-            _gameConfig.Health = 500;
+            _gameConfig = ScriptableObject.CreateInstance<Settings>();
+            _gameConfig = Resources.Load<Settings>("PlayerSettings");
         }
 
         public Settings GetGameConfig()
         {
+            LoadConfig();
             return _gameConfig;
         }
     }

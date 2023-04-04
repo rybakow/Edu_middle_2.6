@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Components.Interfaces;
 using UnityEngine;
@@ -15,7 +14,6 @@ public class AttackBehaivour : MonoBehaviour, IBehaviour
     {
         _animator = this.GetComponent<Animator>();
     }
-
     
     public float Evaluate()
     {

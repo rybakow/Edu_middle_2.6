@@ -1,25 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DefaultNamespace;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 public class CharacterHealth : MonoBehaviour
 {
-    public int HealthView;
-    
     [Inject] private IConfigLoader _configLoader;
     
     public int Health
     {
         get => GameManager.Health;
-        set {
-            GameManager.Health = value;
-            HealthView = value;
-        }
+        set => GameManager.Health = value;
     }
     
     public int FirstAid
@@ -33,7 +23,6 @@ public class CharacterHealth : MonoBehaviour
         var gameConfig = _configLoader.GetGameConfig();
 
         Health = gameConfig.Health;
-        FirstAid = 0;
     }
     
 }

@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using Components.Interfaces;
 using UnityEngine;
@@ -5,6 +7,8 @@ using UnityEngine;
 public class AttackBehaivour : MonoBehaviour, IBehaviour
 {
     public GameObject ParentObject;
+
+    public int Damage;
     
     private Animator _animator;
     
@@ -27,7 +31,7 @@ public class AttackBehaivour : MonoBehaviour, IBehaviour
             {
                 _target = player.gameObject;
                 
-                if (Vector3.Distance(ParentObject.transform.position, _target.transform.position) <= 1.4f)
+                if (Vector3.Distance(ParentObject.transform.position, _target.transform.position) <= 1.1f)
                     return 3f;
             }
                 
@@ -47,5 +51,13 @@ public class AttackBehaivour : MonoBehaviour, IBehaviour
     {
         ParentObject.transform.LookAt(_target.transform);
         _animator.SetTrigger("Attack");
+        
+        if (_animator.GetCurrentAnimatorStateInfo (0).normalizedTime >= 0.9f)
+        {
+            var player = _target.GetComponent<CharacterHealth>();
+
+            if (player != null)
+                player.Health -= Damage;
+        }
     }
 }

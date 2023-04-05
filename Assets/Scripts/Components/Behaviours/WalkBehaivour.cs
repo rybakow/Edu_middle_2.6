@@ -56,7 +56,7 @@ public class WalkBehaivour : MonoBehaviour, IBehaviour
     {
         if (_isWalking)
         {
-            if (_target != null && Vector3.Distance(ParentObject.transform.position, _target.transform.position) > 1.4f)
+            if (_target != null && Vector3.Distance(ParentObject.transform.position, _target.transform.position) > 1f)
             {
                 _animator.SetBool("isWalking", true);
                 ParentObject.transform.LookAt(_target.transform);
